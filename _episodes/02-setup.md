@@ -1,27 +1,28 @@
 ---
-title: Setting Up Git
+title: Git 구축 및 설정
 teaching: 5
 exercises: 0
 questions:
-- "How do I get set up to use Git?"
+- "Git을 사용하려면 어떻게 환경을 구축해야 할까?"
 objectives:
-- "Configure `git` the first time it is used on a computer."
-- "Understand the meaning of the `--global` configuration flag."
+- "`git` 환경설정하고 본인 컴퓨터에 사용한다."
+- "`--global` 환경설정 플래그 의미를 이해한다."
 keypoints:
--   "Use `git config` with the `--global` option to configure a user name, email address, editor, and other preferences once per machine."
+- "`--global` 선택옵션을 `git config`에 적용하여 사용자명(user name), 전자우편, 편집기 등 선호사항을 컴퓨터에 적용한다."
 ---
 
-When we use Git on a new computer for the first time,
-we need to configure a few things. Below are a few examples
-of configurations we will set as we get started with Git:
 
-*   our name and email address,
-*   what our preferred text editor is,
-*   and that we want to use these settings globally (i.e. for every project).
+처음 Git를 새로운 컴퓨터에 사용할 때, 몇가지 설정이 필요하다. 
+다음에 Git을 시작할 때, 설정해야 되는 몇가지 사례가 나와있다:
 
-On a command line, Git commands are written as `git verb options`,
-where `verb` is what we actually want to do and `options` is additional optional information which may be needed for the `verb`. So here is how
-Dracula sets up his new laptop:
+
+*   이름과 전자우편 주소
+*   선호하는 텍스트 편집기 선정
+*   전역(즉, 모든 프로젝트)으로 이런 설정을 할지 여부
+
+명령라인에서 Git 명령어는 다음과 같이 작성된다; `git verb options`, 즉, `git 동사 선택옵션`.
+`verb` 가 실제로 수행하고자 하는 명령어가 되고, `options`는 `verb`에 필요할지도 모르는 추가 선택옵션 정보가 된다.
+다음에 Dracula가 새로 구입한 노트북에 환경설정하는 방법이 나와있다:
 
 ~~~
 $ git config --global user.name "Vlad Dracula"
@@ -29,38 +30,38 @@ $ git config --global user.email "vlad@tran.sylvan.ia"
 ~~~
 {: .language-bash}
 
-Please use your own name and email address instead of Dracula's. This user name and email will be associated with your subsequent Git activity,
-which means that any changes pushed to
+Dracula 대신에 본인 이름과 본인 전자우편 주소를 사용합니다. 사용자명과 전자우편 주소는 후속 Git 활동과 연관된다.
+이것이 의미하는 바는 
 [GitHub](https://github.com/),
 [BitBucket](https://bitbucket.org/),
-[GitLab](https://gitlab.com/) or
-another Git host server
-in a later lesson will include this information.
+[GitLab](https://gitlab.com/), 혹은 Git 호스트 서버에 푸쉬하는 어떤 변경사항도 사용자명과 전자우편 주소를 담게되는 것을 의미한다.
 
-> ## Line Endings
+
+> ## 줄마침(Line Endings)
 >
-> As with other keys, when you hit <kbd>Return</kbd> on your keyboard,
-> your computer encodes this input as a character.
-> Different operating systems use different character(s) to represent the end of a line.
-> (You may also hear these referred to as newlines or line breaks.)
-> Because Git uses these characters to compare files,
-> it may cause unexpected issues when editing a file on different machines. 
-> Though it is beyond the scope of this lesson, you can read more about this issue on
-> [on this GitHub page](https://help.github.com/articles/dealing-with-line-endings/).
+> 다른 키보트 타이핑과 마찬가지로, 키보드로 <kbd>Return</kbd>를 치게 되면,
+> 컴퓨터는 엔터값을 문자로 인코딩한다.
+> 줄마침을 표현하기 위해서 운영체제마다 별도 문자를 사용한다.
+> (개행 혹은 줄중단, 영어로 newline 혹은 line breaks를 들어봤을 수도 있다.)
+> Git이 파일을 비교하는데 이러한 문자를 사용하기 때문에,
+> 운영체제가 다른 컴퓨텅에서 파일을 편집할 때 예기치 않은 이슈가 발생될 수 있다.
+> 이 문제는 금번 학습 범위를 넘어서는 것이지만, [on this GitHub page](https://help.github.com/articles/dealing-with-line-endings/)
+> 웹페이지에서 좀더 자세한 정보를 얻을 수 있다.
+> 
 {: .callout}
 >
-> You can change the way Git recognizes and encodes line endings
-> using the `core.autocrlf` command to `git config`.
-> The following settings are recommended:
+> Git에서 줄마침을 인식하고 인코딩하는 방식을 변경하려면,
+> `git config`에 `core.autocrlf` 명령을 사용한다.
+> 권장되는 설정은 다음과 같다:
 >
-> On macOS and Linux:
+> 맥OS와 리눅스:
 >
 > ~~~
 > $ git config --global core.autocrlf input
 > ~~~
 > {: .language-bash}
 >
-> And on Windows:
+> 윈도우:
 >
 > ~~~
 > $ git config --global core.autocrlf true
@@ -68,14 +69,17 @@ in a later lesson will include this information.
 > {: .language-bash}
 > 
 
-For these lessons, we will be interacting with [GitHub](https://github.com/) and so the email address used should be the same as the one used when setting up your GitHub account. If you are concerned about privacy, please review [GitHub's instructions for keeping your email address private][git-privacy]. 
-If you elect to use a private email address with GitHub, then use that same email address for the `user.email` value, e.g. `username@users.noreply.github.com` replacing `username` with your GitHub one. You can change the email address later on by using the `git config` command again.
+이번 학습에서, [GitHub](https://github.com/)을 사용하게 되는데, 사용되는 전자우편주소는 GitHub 계정을 설정할 때 사용하는 것과 같은 것이 되어야 한다.
+만약, 개인정보에 대해 걱정이 된다면, [GitHub's instructions for keeping your email address private][git-privacy]을 참조한다.
+GitHub에서 사적인 개인 전자우편주소를 선택하기로 했다면,
+`user.email`에 동일한 전자우편주소를 사용한다. 즉, `username`을 GitHub의 설정된 것으로 바꿔놓아 `username@users.noreply.github.com`게 된다.
+나중에 `git config` 명령어를 사용해서 전자우편 주소를 변경할 수 있다.
 
-Dracula also has to set his favorite text editor, following this table:
+Dracula도 자신이 선호하는 텍스트 편집기를 설정해야 하는데, 다음 표를 참조한다:
 
-| Editor             | Configuration command                            |
+| 편집기             | 환경설정 명령어                             |
 |:-------------------|:-------------------------------------------------|
-| Atom | `$ git config --global core.editor "atom --wait"`|
+| Atom               | `$ git config --global core.editor "atom --wait"`|
 | nano               | `$ git config --global core.editor "nano -w"`    |
 | BBEdit (Mac, with command line tools) | `$ git config --global core.editor "bbedit -w"`    |
 | Sublime Text (Mac) | `$ git config --global core.editor "/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -n -w"` |
@@ -85,37 +89,38 @@ Dracula also has to set his favorite text editor, following this table:
 | Notepad++ (Win, 64-bit install)    | `$ git config --global core.editor "'c:/program files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"`|
 | Kate (Linux)       | `$ git config --global core.editor "kate"`       |
 | Gedit (Linux)      | `$ git config --global core.editor "gedit --wait --new-window"`   |
-| Scratch (Linux)       | `$ git config --global core.editor "scratch-text-editor"`  |
+| Scratch (Linux)    | `$ git config --global core.editor "scratch-text-editor"`  |
 | Emacs              | `$ git config --global core.editor "emacs"`   |
 | Vim                | `$ git config --global core.editor "vim"`   |
 
-It is possible to reconfigure the text editor for Git whenever you want to change it.
+원할 때마다 Git에 사용할 텍스트 편집기 환경설정을 다시 할 수 있다.
 
-> ## Exiting Vim
+> ## Vim 나가기
 >
-> Note that Vim is the default editor for many programs. If you haven't used Vim before and wish to exit a session without saving
-your changes, press <kbd>Esc</kbd> then type `:q!` and hit <kbd>Return</kbd>.
-> If you want to save your changes and quit, press <kbd>Esc</kbd> then type `:wq` and hit <kbd>Return</kbd>.
+> 다수 프로그램에서 Vim이 기본설정된 편집기다.
+> Vim을 예전에 사용한 적이 없고, 변경사항을 저장하지 않고 세션을 빠져나가고자 한다면,
+> <kbd>Esc</kbd> 다음에, `:q!`를 타이핑하고 나서 <kbd>Return</kbd>를 친다.
+> 변경사항을 저장하고 나가려면, <kbd>Esc</kbd> 다음에, `:wq`를 타이핑하고 <kbd>Return</kbd>을 친다.
+> 
 {: .callout}
 
-The four commands we just ran above only need to be run once: the flag `--global` tells Git
-to use the settings for every project, in your user account, on this computer.
+앞서 실행한 상기 명령어는 한번만 실행하면 된다: `--global` 플래그는 Git으로 하여금 해당 컴퓨터에 본인 계정의
+모든 프로젝트에 환경설정한 것을 사용하도록 한다.
 
-You can check your settings at any time:
+본인이 설정한 환경설정 내용은 언제라도 다음 명령어를 입력하여 확인할 수 있다:
 
 ~~~
 $ git config --list
 ~~~
 {: .language-bash}
 
-You can change your configuration as many times as you want: just use the
-same commands to choose another editor or update your email address.
+원하는 만큼 환경설정을 바꿀 수도 있다: 편집기를 바꾸거나 전자우편주소를 갱신할 때 
+동일한 명령어를 사용하면 된다.
 
-> ## Proxy
+> ## 프록시(Proxy)
 >
-> In some networks you need to use a
-> [proxy](https://en.wikipedia.org/wiki/Proxy_server). If this is the case, you
-> may also need to tell Git about the proxy:
+> 일부 네트워크에서 [proxy](https://en.wikipedia.org/wiki/Proxy_server)를 사용할 필요가 있다.
+> 이런 경우, Git에게 프록시에 대해 일러줘야 한다:
 >
 > ~~~
 > $ git config --global http.proxy proxy-url
@@ -123,7 +128,7 @@ same commands to choose another editor or update your email address.
 > ~~~
 > {: .language-bash}
 >
-> To disable the proxy, use
+> 프록시를 비활성화 하는 경우, 다음 명령어를 사용한다.
 >
 > ~~~
 > $ git config --global --unset http.proxy
@@ -132,9 +137,9 @@ same commands to choose another editor or update your email address.
 > {: .language-bash}
 {: .callout}
 
-> ## Git Help and Manual
+> ## Git 도움말과 매뉴얼
 >
-> Always remember that if you forget a `git` command, you can access the list of commands by using `-h` and access the Git manual by using `--help` :
+> 항상 기억할 것은 `git` 명령어를 잊은 경우, `-h` 선택옵션을 주어 명령어 목록을 볼 수 있고, `--help`를 사용해서 Git 매뉴얼도 이용할 수 있다:
 >
 > ~~~
 > $ git config -h
