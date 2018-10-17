@@ -1,20 +1,18 @@
 ---
-title: Ignoring Things
+title: 추적대상에서 제외
 teaching: 5
 exercises: 0
 questions:
-- "How can I tell Git to ignore files I don't want to track?"
+- "어떻게 하면 Git에게 파일 추적을 하지 못하게 할 수 있을까?"
 objectives:
-- "Configure Git to ignore specific files."
-- "Explain why ignoring files can be useful."
+- "특정 파일을 무시하여 관리에서 제외하도록 Git 환경설정."
+- "파일을 무시하는 것이 왜 유용한지 설명한다."
 keypoints:
-- "The `.gitignore` file tells Git what files to ignore."
+- "`.gitignore` 파일에 Git 추적대상에서 제외할 목록을 기록한다."
 ---
 
-What if we have files that we do not want Git to track for us,
-like backup files created by our editor
-or intermediate files created during data analysis?
-Let's create a few dummy files:
+만약 Git가 추적하기 않았으면 하는 파일이 있다면 어떨까요? 
+편집기에서 자동 생성되는 백업파일 혹은 자료 분석 중에 생성되는 중간 임시 파일이 좋은 예가 된다. 몇개 마루타 더미(dummy) 파일을 생성하자:
 
 ~~~
 $ mkdir results
@@ -22,7 +20,7 @@ $ touch a.dat b.dat c.dat results/a.out results/b.out
 ~~~
 {: .language-bash}
 
-and see what Git says:
+그려면 Git은 다음을 보여준다:
 
 ~~~
 $ git status
@@ -42,12 +40,12 @@ nothing added to commit but untracked files present (use "git add" to track)
 ~~~
 {: .output}
 
-Putting these files under version control would be a waste of disk space.
-What's worse,
-having them all listed could distract us from changes that actually matter,
-so let's tell Git to ignore them.
+벼젼 제어 아래 이런 파일을 놓는 것은 디스크 공간 낭비다.
+더 좋은 않는 것은, 이런 파일을 모두 관리목록에 넣는 것이 실제적으로 중요한 변경사항을 관리하는데 집중하지 못하게 한다는 것이다.
+그래서 Git에게 중요하지 않는 이런 파일을 무시하게 일러준다.
 
-We do this by creating a file in the root directory of our project called `.gitignore`:
+`.gitignore`라는 프로젝트 루트 디렉토리에 파일을 생성해서 무시할 것을 명기함으로써 해당작업을 수행한다:
+
 
 ~~~
 $ nano .gitignore
@@ -61,13 +59,11 @@ results/
 ~~~
 {: .output}
 
-These patterns tell Git to ignore any file whose name ends in `.dat`
-and everything in the `results` directory.
-(If any of these files were already being tracked,
-Git would continue to track them.)
+상기 패턴은 `.dat` 확장자를 갖는 임의 파일과 `results` 디렉토리에 있는 모든 것을 무시한다. 
+(하지만, 이들 파일 중 일부가 이미 추적되고 있다면, Git은 계속 추적한다.)
 
-Once we have created this file,
-the output of `git status` is much cleaner:
+`.gitignore` 파일을 생성하자마자, `git status` 출력결과는 훨씬 깨끗해졌다:
+
 
 ~~~
 $ git status
@@ -84,11 +80,11 @@ nothing added to commit but untracked files present (use "git add" to track)
 ~~~
 {: .output}
 
-The only thing Git notices now is the newly-created `.gitignore` file.
-You might think we wouldn't want to track it,
-but everyone we're sharing our repository with will probably want to ignore
-the same things that we're ignoring.
-Let's add and commit `.gitignore`:
+이제 Git가 알아차리는 유일한 것은 새로 생성된 `.gitignore` 파일이 된다. 
+우리는 이들 파일을 추적하여 관리하지 않는다고 생각할 수도 있지만, 
+우리와 저장소를 공유하고 있는 다른 모든 사람도 우리가 추적관리하지 않는 동일한 것을 무시하고 싶을 것이다. 
+`.gitignore` 를 추가하고 커밋하자:
+
 
 ~~~
 $ git add .gitignore
@@ -103,7 +99,7 @@ nothing to commit, working directory clean
 ~~~
 {: .output}
 
-As a bonus, using `.gitignore` helps us avoid accidentally adding to the repository files that we don't want to track:
+보너스로, `.gitignore`는 실수로 추적하고 싶지 않는 파일이 저장소에 추가되는 것을 피할 수 있게 돕는다:
 
 ~~~
 $ git add a.dat
@@ -117,10 +113,11 @@ Use -f if you really want to add them.
 ~~~
 {: .output}
 
-If we really want to override our ignore settings,
-we can use `git add -f` to force Git to add something. For example,
-`git add -f a.dat`.
-We can also always see the status of ignored files if we want:
+만약 `.gitignore` 설정에 우선해서 파일을 추가하려면, 
+`git add -f`를 사용해서 강제로 Git에 파일을 추가할 수 있다. 
+예를 들어, `git add -f a.dat`.
+추적관리되지 않는 파일의 상태를 항상 보려면 다음을 사용한다:
+
 
 ~~~
 $ git status --ignored
@@ -141,9 +138,9 @@ nothing to commit, working directory clean
 ~~~
 {: .output}
 
-> ## Ignoring Nested Files
+> ## 중첩된 파일 추적하지 않기
 >
-> Given a directory structure that looks like:
+> 디렉토리 구조가 다음과 같다:
 >
 > ~~~
 > results/data
@@ -151,52 +148,49 @@ nothing to commit, working directory clean
 > ~~~
 > {: .language-bash}
 >
-> How would you ignore only `results/plots` and not `results/data`?
+> 어떻게 하면 `results/plots` 만 추적하지 않을 수 있을까? `results/data` 디렉토리는 추적한다.
 >
-> > ## Solution
+> > ## 해답
 > >
-> > As with most programming issues, there are a few ways that you
-> > could solve this. If you only want to ignore the contents of
-> > `results/plots`, you can change your `.gitignore` to ignore
-> > only the `/plots/` subfolder by adding the following line to
-> > your .gitignore:
+> > 대부분의 프로그래밍 이슈와 마찬가지로,
+> > 이 문제를 해결하는 몇가지 방식이 있다.
+> > `results/plots` 디렉토리 콘텐츠만 추적하지 않기로 한다면,
+> > `.gitignore` 파일에 `/plots/` 폴더만 추적하지 않도록 다음과 같이 
+> > `.gitignore` 파일을 변경하면 된다:
 > >
 > > `results/plots/`
 > >
-> > If, instead, you want to ignore everything in `/results/`, but wanted to track
-> > `results/data`, then you can add `results/` to your .gitignore
-> > and create an exception for the `results/data/` folder.
-> > The next challenge will cover this type of solution.
+> > 대신에 `/results/` 디렉토리에 모든 것을 추적하지 않지만, `results/data`만 추적하고자 한다면,
+> > `results/` 폴더를 `.gitignore` 파일에 추가하고 `results/data/` 폴더에 대해서 예외를 생성한다.
+> > 다음 도전과제가 이런 유형의 해법을 다루게 된다.
 > >
-> > Sometimes the `**` pattern comes in handy, too, which matches
-> > multiple directory levels. E.g. `**/results/plots/*` would make git ignore
-> > the `results/plots` directory in any root directory.
+> > 종종 `**` 패턴이 사용하기 수월한데, 다수 디렉토리와 매칭을 지원한다.
+> > 예를 들어, `**/results/plots/*`은 루트 디렉토리에 `results/plots` 디렉토리를 추정하기 않게 도니다.
 > {: .solution}
 {: .challenge}
 
-> ## Including Specific Files
+> ## 특정 파일만 포함시키기
 >
-> How would you ignore all `.data` files in your root directory except for
-> `final.data`?
-> Hint: Find out what `!` (the exclamation point operator) does
+> `final.data` 파일만 제외하고 모든 `.data` 파일은 추적하지 않고자 하면 어떻게 하면 될까?
+> 힌트: `!` (느낌표 연산자) 부호가 수행하는 작업을 알아본다.
 >
-> > ## Solution
+> > ## 해법
 > >
-> > You would add the following two lines to your .gitignore:
+> > `.gitignore` 파일에 다음 두 줄을 추가한다:
 > >
 > > ~~~
-> > *.data           # ignore all data files
-> > !final.data      # except final.data
+> > *.data           # 모든 data 파일을 추적하지 않는다.
+> > !final.data      # final.data 파일만 예외로 한다.
 > > ~~~
 > > {: .output}
 > >
-> > The exclamation point operator will include a previously excluded entry.
+> > 느낌표 연산자가 앞서 제외된 항목을 포함시키게 한다.
 > {: .solution}
 {: .challenge}
 
-> ## Ignoring all data Files in a Directory
+> ## 디렉토리에 모든 파일 추적하지 않기
 >
-> Given a directory structure that looks like:
+> 디렉토리 구조가 다음과 같다:
 >
 > ~~~
 > results/data/position/gps/a.data
@@ -207,19 +201,20 @@ nothing to commit, working directory clean
 > ~~~
 > {: .language-bash}
 >
-> What's the shortest `.gitignore` rule you could write to ignore all `.data`
-> files in `result/data/position/gps`? Do not ignore the `info.txt`.
+> `result/data/position/gps` 디렉토리에 모든 `.data` 파일을 추적하지 않도록 
+> `.gitignore` 파일에 규칙을 작성하는데 가장 짧은 규칙은 무엇일까?
+> `info.txt` 파일은 추적하자.
 >
-> > ## Solution
+> > ## 해답
 > >
-> > Appending `results/data/position/gps/*.data` will match every file in `results/data/position/gps` that ends with `.data`.
-> > The file `results/data/position/gps/info.txt` will not be ignored.
+> > `results/data/position/gps` 디렉토리에 `.data`로 끝나는 모든 파일은  `results/data/position/gps/*.data` 규칙으로 매칭된다.
+> > `results/data/position/gps/info.txt` 파일은 확장자가 달라서 계속 추적된다.
 > {: .solution}
 {: .challenge}
 
-> ## The Order of Rules
+> ## 적용 규칙 순서
 >
-> Given a `.gitignore` file with the following contents:
+> `.gitignore` 파일에 다음 내용이 담겨있다:
 >
 > ~~~
 > *.data
@@ -227,33 +222,33 @@ nothing to commit, working directory clean
 > ~~~
 > {: .language-bash}
 >
-> What will be the result?
+> 적용 결과는 어떻게 될까?
 >
-> > ## Solution
+> > ## 해답
 > >
-> > The `!` modifier will negate an entry from a previously defined ignore pattern.
-> > Because the `!*.data` entry negates all of the previous `.data` files in the `.gitignore`,
-> > none of them will be ignored, and all `.data` files will be tracked.
+> > `!` 연산자는 이전에 정의된 추적제외 패턴을 부정한다.
+> > `.gitignore`파일에서 `!*.data` 규칙은 앞서 추적에서 제외한 `.data` 모든 파일 추적제외를 부정한다.
+> > 따라서, 어떤 것도 추적제외되지 않고, `.data` 파일 모두가 추적된다.
 > >
 > {: .solution}
 {: .challenge}
 
-> ## Log Files
+> ## 로그 파일
 >
-> You wrote a script that creates many intermediate log-files of the form `log_01`, `log_02`, `log_03`, etc.
-> You want to keep them but you do not want to track them through `git`.
+> 스크립트를 작성해서 `log_01`, `log_02`, `log_03` 형태의 중간 로그 파일이 많이 생성되었다.
+> 로그 파일을 보관하고자 하지만, `git`으로 추적하고 싶지는 않다.
 >
-> 1. Write **one** `.gitignore` entry that excludes files of the form `log_01`, `log_02`, etc.
+> 1. `log_01`, `log_02` ... 형태 모든 파일을 추적 제외하는 `.gitignore` 규칙을 **하나** 작성한다.
 >
-> 2. Test your "ignore pattern" by creating some dummy files of the form `log_01`, etc.
+> 2. `log_01` 형태 마루타 파일을 생성해서 "추적제외 패턴"을 테스트한다.
 >
-> 3. You find that the file `log_01` is very important after all, add it to the tracked files without changing the `.gitignore` again.
+> 3. 종국에 `log_01` 파일이 매우 중요하는 것을 알게 되어서 `.gitignore` 파일을 변경하지 않고 추적되게 추가한다.
 >
-> 4. Discuss with your neighbor what other types of files could reside in your directory that you do not want to track and thus would exclude via `.gitignore`.
+> 4. 추적하기를 원하지 않지만, `.gitignore`를 통해서 추적제외할 수 있는 파일이 어떤 유형이 있는지 주변 동료와 상의하자.
 >
-> > ## Solution
+> > ## 해답
 > >
-> > 1. append either `log_*`  or  `log*`  as a new entry in your .gitignore
-> > 3. track `log_01` using   `git add -f log_01`
+> > 1. `log_*`  혹은  `log*` 규칙을 `.gitignore` 파일에 추가한다.
+> > 3. `git add -f log_01` 명령어를 사용해서 `log_01` 파일에 대한 추적을 수행한다.
 > {: .solution}
 {: .challenge}
