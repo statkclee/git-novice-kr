@@ -3,50 +3,38 @@ layout: lesson
 root: .
 ---
 
-Wolfman and Dracula have been hired by Universal Missions (a space
-services spinoff from Euphoric State University) to investigate if it
-is possible to send their next planetary lander to Mars.  They want to
-be able to work on the plans at the same time, but they have run into
-problems doing this in the past.  If they take turns, each one will
-spend a lot of time waiting for the other to finish, but if they work
-on their own copies and email changes back and forth things will be
-lost, overwritten, or duplicated.
 
-A colleague suggests using [version control]({{ page.root }}/reference#version-control) to
-manage their work. Version control is better than mailing files back and forth:
+Universal Missions 회사는 (Euphoric State University에서 분사한 항공 서비스 전문회사) 늑대인가(Wolfman)과 드라큘라(Dracula)를 고용해서 다음 행성 착륙선을 화성에 보낼 수 있는지 조사하려고 한다. 늑대인간과 드라큘라 모두 계획하는 작업을 동시에 수행할 수 있길 희망하지만, 과거에도 동일한 문제에 봉착한 경험이 있다. 순서대로 작업을 한다면, 다른 사람 작업이 끝날 때까지 한참을 기다려야 한다. 하지만, 본인 계획을 가지고 작업을 해서 전자 우편으로 주고 받고 하는 것은 분실되고, 덮어쓰고, 이중기록되는 문제가 있다.
 
-*   Nothing that is committed to version control is ever lost, unless
-    you work really, really hard at it. Since all old versions of
-    files are saved, it's always possible to go back in time to see
-    exactly who wrote what on a particular day, or what version of a
-    program was used to generate a particular set of results.
+한 동료가 작업관리로 [버젼 제어(version control)]({{ page.root }}/reference#version-control)를 제안했다.
+버젼 제어가 전자우편을 주고 받는 것보다 낫다:
 
-*   As we have this record of who made what changes when, we know who to ask
-    if we have questions later on, and, if needed, revert to a previous
-    version, much like the "undo" feature in an editor.
+*   버젼 제어에 커밋된 어떤 것도 분실되지 않는다. 모든 과거 파일 이력이 저장되기 때문에,
+    항상 누가 무엇을 특정 시점에 작업한 것, 혹은 특정 결과를 생성하는데 무슨 프로그램 버젼을 사용했는지도 
+    살펴보려 하면 시간여행해서 되돌아 보는 것도 가능하다.
 
-*   When several people collaborate in the same project, it's possible to
-    accidentally overlook or overwrite someone's changes. The version control
-    system automatically notifies users whenever there's a conflict between one
-    person's work and another's.
+*   누가 언제 언떤 변경을 했다는 기록을 보유하고 있어서, 추후 질문이 있다면 누구에게 물어봐야 되는지 알게 된다.
+    그리고, 만약 필요하다면, 편집기에서 "실행 취소(undo)"와 매우 유사하게 이전 버젼으로 원복도 가능하다.
 
-Teams are not the only ones to benefit from version control: lone
-researchers can benefit immensely.  Keeping a record of what was
-changed, when, and why is extremely useful for all researchers if they
-ever need to come back to the project later on (e.g., a year later,
-when memory has faded).
+*   동일 프로젝트에 여러명이 협업할 때, 실수로 누군가의 변경사항을 간과하거나 덮어쓰곤 한다:
+    버젼제어 시스템은 자동적으로 사용자에게 알람을 줘서 본인 작업과 다른 사람 작업사이에 충돌(conflict)이 있다는 것을 알 수 있다.
 
-Version control is the lab notebook of the digital world: it's what
-professionals use to keep track of what they've done and to
-collaborate with other people.  Every large software development
-project relies on it, and most programmers use it for their small jobs
-as well.  And it isn't just for software: books,
-papers, small data sets, and anything that changes over time or needs
-to be shared can and should be stored in a version control system.
+팀으로 작업하는 사람만 버젼제어로부터 혜택을 받는 것은 아니다: 
+단독 연구자도 상당히 혜택을 받을 수 있다. 만약 추후에 해당 프로젝트로 되돌아 볼 필요가 있다면 (예를 들어, 기억이 희미해지는 1년 후에),
+무엇이 언제, 왜 변경되었는지 기록을 보관하는 것이 모든 연구자에게 극도로 중요하다.
 
-> ## Prerequisites
+버젼관리 (Version Control)은 디저털 세상에서 연구실 수첩이다:
+버젼관리는 전문가가 자신이 한것과 다른 사람과 협업한 것을 기록하고 관리하기 위해서 사용하는 것이다. 
+모든 대형 소프트웨어 개발 프로젝트는 버젼제어에 의존하며, 
+대부분의 프로그래머는 작은 일에도 사용한다. 
+버젼제어가 단지 소프트웨어만 한정된 것이 아니다. 
+책, 논문, 작은 데이터셋, 시간에 따라 변하고 공유될 필요가 있는 어떤 것이나 버젼제어 시스템에 저장될 수 있고 되여야 한다.
+
+
+
+> ## 선수과목
 >
-> In this lesson we use Git from the Unix Shell.
-> Some previous experience with the shell is expected,
-> *but isn't mandatory*.
+> 이번 학습에서 유닉스 쉘에서 Git을 사용한다.
+> 쉘을 사용한 이전 경험 일부를 기대하지만, *강제적인 의무사항은 아니다.*
+> 
 {: .prereq}
