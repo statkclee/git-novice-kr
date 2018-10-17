@@ -1,76 +1,72 @@
 ---
-title: Automated Version Control
+title: 자동화된 버젼제어
 teaching: 5
 exercises: 0
 questions:
-- "What is version control and why should I use it?"
+- "버젼 제어가 무엇이고, 왜 버젼제어를 사용해야 하는가?"
 objectives:
-- "Understand the benefits of an automated version control system."
-- "Understand the basics of how Git works."
+- "자동화된 버젼제어 시스템 장점을 이해한다."
+- "Git 동작방법 기본을 이해한다."
 keypoints:
-- "Version control is like an unlimited 'undo'."
-- "Version control also allows many people to work in parallel."
+- "버전 제어는 무한정 '실행취소(undo)'하는 것과 같다."
+- "버전 제어는 많은 분들이 병렬로 작업하는 것도 가능하게 한다."
 ---
 
-We'll start by exploring how version control can be used
-to keep track of what one person did and when.
-Even if you aren't collaborating with other people,
-automated version control is much better than this situation:
+
+누군가 무엇을 했는지, 언제 했는지를 추적하기 위해서, 버젼제어를 어떻게 사용할 수 있는지 탐색해보자.
+다른 사람과 협업을 하지 않더라도, 자동화된 버젼제어가 다음 상황보다 훨씬 더 낫다:
 
 [![Piled Higher and Deeper by Jorge Cham, http://www.phdcomics.com/comics/archive_print.php?comicid=1531](../fig/phd101212s.png)](http://www.phdcomics.com)
 
 "Piled Higher and Deeper" by Jorge Cham, http://www.phdcomics.com
 
-We've all been in this situation before: it seems ridiculous to have
-multiple nearly-identical versions of the same document. Some word
-processors let us deal with this a little better, such as Microsoft
-Word's [Track Changes](https://support.office.com/en-us/article/Track-changes-in-Word-197ba630-0f5f-4a8e-9a77-3712475e806a), Google Docs' [version
-history](https://support.google.com/docs/answer/190843?hl=en), or LibreOffice's [Recording and Displaying Changes](https://help.libreoffice.org/Common/Recording_and_Displaying_Changes).
+이전에 상기와 같은 상황에 처했었다: 같은 문서에 대해서 거의 동일한 다수 버젼을 관리하는 것은 우수워 보인다.
+일부 워드프로세서가 이런 상황을 좀더 잘 처리하도록 하는 기능이 있다. 예를 들어, 마이크로소프트 워드 "변경사항 추적(Track Changes)" 혹은
+구글 닥스(Google Docs)의 버젼 이력이 그것이다.
 
-Version control systems start with a base version of the document and
-then record changes you make each step of the way. You can
-think of it as a recording of your progress: you can rewind to start at the base
-document and play back each change you made, eventually arriving at your
-more recent version.
+버젼제어 시슽메은 문서의 기본 버젼으로 시작하고 나서, 각 단계마다 변경한 이력을 저장한다.
+테이프로 생각하면 쉽다: 테이프를 되감으면, 문서 시작한 지점으로 가고, 각 변경사항을 다시 돌리면 가장 최근 버젼이 된다.
 
 ![Changes Are Saved Sequentially](../fig/play-changes.svg)
 
-Once you think of changes as separate from the document itself, you
-can then think about "playing back" different sets of changes on the base document, ultimately
-resulting in different versions of that document. For example, two users can make independent
-sets of changes on the same document. 
+변경사항을 문서 그자체로부터 떨어진 것으로 생각하면,
+동일 기반 문서에 다른 변경사항을 "재생(playback)"하고, 다른 문서 버젼을 관리하는 것으로 간주할 수 있다.
+예를 들어, 사용자 두명이 같은 문서에 독립적인 변경 작업을 수행할 수 있다.
 
 ![Different Versions Can be Saved](../fig/versions.svg)
 
-Unless there are conflicts, you can even incorporate two sets of changes into the same base document.
+만약 충돌나지 않으면, 심지어 동일 문서에서 두가지 변경사항을 작업할 수도 있다.
+
 
 ![Multiple Versions Can be Merged](../fig/merge.svg)
 
-A version control system is a tool that keeps track of these changes for us,
-effectively creating different versions of our files. It allows us to
-decide which changes will be made to the next version (each record of these changes is called a
-[commit]({{ page.root }}/reference#commit)), and keeps useful metadata about them. The
-complete history of commits for a particular project and their metadata make up
-a [repository]({{ page.root }}/reference#repository). Repositories can be kept in sync
-across different computers, facilitating collaboration among different people.
+버젼제어 시스템은 사용자를 대신해서 변경사항을 기록하고,
+파일 버젼을 생성하고 파일병합하는데 유용한 도구다.
+버젼제어 시스템은 어떤 변경사항을 다음 버젼에 반영([커밋(commit)]({{ page.root }}/reference#commit))으로 불림)할지 결정하는 할 수 있게 하고,
+커밋에 관한 유용한 메타정보를 보관한다.
+특정 프로젝트와 프로젝트 메타정보에 대한 완전한 커밋이력은 
+[저장소(repository)]({{ page.root }}/reference#repository)에 보관된다.
+저장소는 협업하는 여러 동료 컴퓨터에 걸쳐 동기화될 수 있다.
 
-> ## The Long History of Version Control Systems
+
+> ## 버젼제어 시스템의 오랜 역사
 >
-> Automated version control systems are nothing new.
-> Tools like RCS, CVS, or Subversion have been around since the early 1980s and are used by many large companies.
-> However, many of these are now considered legacy systems (i.e., outdated) due to various limitations in their capabilities.
-> More modern systems, such as Git and [Mercurial](https://swcarpentry.github.io/hg-novice/),
-> are *distributed*, meaning that they do not need a centralized server to host the repository.
-> These modern systems also include powerful merging tools that make it possible for multiple authors to work on
-> the same files concurrently.
+> 자동화된 버젼제어 시스템이 새로운 것은 전혀 아니다.
+> 1980년부터 RCS, CVS, Subversion 같은 도구가 존재했고, 많은 대기업에서 사용되고 있다.
+> 하지만, 다양한 기능의 한계로 인해서 이들 중 다수는 이제 레거시 시스템(legacy system)으로 간주된다.
+> 최근에 등장한 도구 Git과 [Mercurial](http://swcarpentry.github.io/hg-novice/)은 *분산(distributed)* 기능을 제공한다.
+> 저장소를 굳이 중앙 서버에 둘 필요가 없다는 의미다.
+> 이러한 최신 시스템에는 동시간에 동일한 파일에 다수 저작자가 작업하는 것을 가능하게 하는 강력한 병합(merge) 도구도 내장하고 있다.
+> 
 {: .callout}
 
-> ## Paper Writing
+> ## 논문 작성
 >
-> *   Imagine you drafted an excellent paragraph for a paper you are writing, but later ruin it. How would you retrieve
->     the *excellent* version of your conclusion? Is it even possible?
+> *   논문을 작성하면서 정말 멋진 문단을 초안을 작성했지만, 나중에 망치게 되었다고 상상해 보자.
+>     어떻게 *정말 멋진* 맺음말 버전이 포함된 문서를 되살릴 수 있을까? 가능하기도 할까?
 >
-> *   Imagine you have 5 co-authors. How would you manage the changes and comments they make to your paper?
->     If you use LibreOffice Writer or Microsoft Word, what happens if you accept changes made using the
->     `Track Changes` option? Do you have a history of those changes?
+> *   공저자가 5명이라고 상상해보자. 공저자가 논문에 반영한 변경사항과 코멘트를 어떻게 관리할 수 있을까?
+>     마이크로소프트 워드나 리브레오피스 Writer를 사용하는 경우, `Track Changes` 옵션을 사용해서 변경한 것을 반영하게 되면 어떻게 될까?
+>     이러한 변경사항에 대한 이력은 갖고 있는가?
+>     
 {: .challenge}
