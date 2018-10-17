@@ -1,26 +1,24 @@
 ---
-title: Creating a Repository
+title: 저장소 생성
 teaching: 10
 exercises: 0
 questions:
-- "Where does Git store information?"
+- "Git은 정보를 어디에 저장할까?"
 objectives:
-- "Create a local Git repository."
+- "로컬 컴퓨터에 Git 저장소를 생성한다."
 keypoints:
-- "`git init` initializes a repository."
-- "Git stores all of its repository data in the `.git` directory."
+- "`git init` 명령어는 저장소를 초기화한다."
+- "Git은 저장소의 모든 데이터를 `.git` 디렉토리에 저장한다."
 ---
 
-Once Git is configured,
-we can start using it.
 
-We will continue with the story of Wolfman and Dracula who are investigating if it
-is possible to send a planetary lander to Mars. 
+
+Git 환경설정이 완료되면, Git를 사용할 수 있다. 
+행성 착륙선을 화성에 보낼 수 있는지 조사를 하고 있는 늑대인간과 드라큘라 이야기를 계속해서 진행해 보자.
 
 ![motivatingexample](../fig/motivatingexample.png)
 
-
-First, let's create a directory in `Desktop` folder for our work and then move into that directory:
+먼저 바탕화면(`Desktop`)에 작업할 디렉토리를 생성하고, 생성한 디렉토리로 이동하자:
 
 ~~~
 $ cd ~/Desktop
@@ -29,31 +27,28 @@ $ cd planets
 ~~~
 {: .language-bash}
 
-Then we tell Git to make `planets` a [repository]({{ page.root }}/reference#repository)—a place where
-Git can store versions of our files:
+그리고 나서, `planets`을 [저장소(repository)]({{ page.root }}/reference#repository)로 만든다 &mdash; 
+저장소는 Git이 파일에 대한 버젼정보를 저장하는 장소다:
 
 ~~~
 $ git init
 ~~~
 {: .language-bash}
 
-It is important to note that `git init` will create a repository that
-includes subdirectories and their files---there is no need to create
-separate repositories nested within the `planets` repository, whether
-subdirectories are present from the beginning or added later. Also, note
-that the creation of the `planets` directory and its initialization as a
-repository are completely separate processes.
+`git init` 명령어가 서브디렉토리(subdirectory)와 파일을 담고 있는 저장소를 생성하는데 주목한다 ---
+`planets` 저장소 내부에 중첩된 별도 저장소를 생성할 필요는 없다.
+또한, `planets` 디렉토리를 생성하고 저장소로 초기화하는 것은 완전히 서로 다른 과정이다.
 
-If we use `ls` to show the directory's contents,
-it appears that nothing has changed:
+`ls`를 사용해서 디렉토리 내용을 살펴보면, 변한 것이 아무것도 없는 것처럼 보인다:
 
 ~~~
 $ ls
 ~~~
 {: .language-bash}
 
-But if we add the `-a` flag to show everything,
-we can see that Git has created a hidden directory within `planets` called `.git`:
+하지만, 모든 것을 보여주는 `-a` 플래그를 추가하면, 
+Git은 `planets` 디렉토리 내부에 `.git` 로 불리는 숨겨진 디렉토리를 생성한 것을 볼 수 있다:
+
 
 ~~~
 $ ls -a
@@ -65,13 +60,13 @@ $ ls -a
 ~~~
 {: .output}
 
-Git uses this special sub-directory to store all the information about the project, 
-including all files and sub-directories located within the project's directory.
-If we ever delete the `.git` sub-directory,
-we will lose the project's history.
+Git은 `.git`이라는 특별한 하위 디렉토리에 프로젝트에 대한 정보를 저장한다. 
+여기에는 프로젝트 디렉토리 내부에 위치한 모든 파일과 서브 디렉토리가 포함된다.
+만약 `.git`를 삭제하면, 프로젝트 이력을 모두 잃어버리게 된다.
 
-We can check that everything is set up correctly
-by asking Git to tell us the status of our project:
+모든 것이 제대로 설정되었는지를 확인을 하려면,
+Git에게 다음과 같이 프로젝트 상태를 확인 명령어를 던진다:
+
 
 ~~~
 $ git status
@@ -86,45 +81,44 @@ nothing to commit (create/copy files and use "git add" to track)
 ~~~
 {: .output}
 
-If you are using a different version of `git`, the exact
-wording of the output might be slightly different.
+다른 `git` 버전을 사용할 경우, 출력 결과물이 다소 다를 수도 있다.
 
-> ## Places to Create Git Repositories
+> ## Git 저장소를 생성할 장소
 >
-> Along with tracking information about planets (the project we have already created), 
-> Dracula would also like to track information about moons.
-> Despite Wolfman's concerns, Dracula creates a `moons` project inside his `planets` 
-> project with the following sequence of commands:
+> (이미 생성한 프로젝트) 행성에 대한 정보를 추적하면서,
+> 드라큘라는 달에 관한 정보도 추적하고자 한다.
+> `plantes` 프로젝트와 관련된, 새로운 프로젝트 `moons` 를 시작한다.
+> 늑대인간의 걱정에 불구하고, Git 저장소 내부에 또다른 Git 저장소를 생성하려고 
+> 다음 순서로 명령어를 입력해 나간다:
 >
 > ~~~
-> $ cd ~/Desktop   # return to Desktop directory
-> $ cd planets     # go into planets directory, which is already a Git repository
-> $ ls -a          # ensure the .git sub-directory is still present in the planets directory
-> $ mkdir moons    # make a sub-directory planets/moons
-> $ cd moons       # go into moons sub-directory
-> $ git init       # make the moons sub-directory a Git repository
-> $ ls -a          # ensure the .git sub-directory is present indicating we have created a new Git repository
+> $ cd ~/Desktop   # 바탕화면 디렉토리로 되돌아 간다.
+> $ cd planets     # planets 디렉토리로 들어간다.
+> $ ls -a          # planets 디렉토리에 .git 서브 디렉토리가 있는지 확인한다.
+> $ mkdir moons    # planets/moons 서브 디렉토릴르 생성한다.
+> $ cd moons       # moons 서브 디렉토리로 이동한다.
+> $ git init       # Git 저장소를 moons 하위디렉토리에 생성한다.
+> $ ls -a          # 새로운 Git 저장소가 .git 하위 디렉토리에 있는지 확인한다.
 > ~~~
 > {: .language-bash}
 >
 > Is the `git init` command, run inside the `moons` sub-directory, required for 
 > tracking files stored in the `moons` sub-directory?
 > 
-> > ## Solution
+> > ## 해답
 > >
-> > No. Dracula does not need to make the `moons` sub-directory a Git repository 
-> > because the `planets` repository will track all files, sub-directories, and 
-> > sub-directory files under the `planets` directory.  Thus, in order to track 
-> > all information about moons, Dracula only needed to add the `moons` sub-directory
-> > to the `planets` directory.
+> > 아닙니다. `moons` 서브 디렉토리에 Git 저장소를 만들 필요는 없어요.
+> > 왜냐하면, `planets` 저장소가 이미 모든 파일, 서브 디렉토리, `planets` 디렉토리
+> > 아래 서브 디렉토리 파일 모두를 추적하기 때문입니다.
+> > 따라서, 달에 관한 모든 정보를 추정하는데, 드랴큘라는 `planets` 디렉토리 아래
+> > `moons` 서브 디렉토리를 추가하는 것으로 충분하다.
 > > 
-> > Additionally, Git repositories can interfere with each other if they are "nested":
-> > the outer repository will try to version-control
-> > the inner repository. Therefore, it's best to create each new Git
-> > repository in a separate directory. To be sure that there is no conflicting
-> > repository in the directory, check the output of `git status`. If it looks
-> > like the following, you are good to go to create a new repository as shown
-> > above:
+> > 추가적으로, 만약 Git 저장소가 중첩(nested)되면, Git 저장소는 서로 방해할 수 있다:
+> > 바깥 저장소가 내부 저장소 버전관리를 하게 된다.
+> > 따라서, 별도 디렉토리에 서로 다른 신규 Git 저장소를 생성하는게 최선이다.
+> > 
+> > 디렉토리에 저장소가 서로 충돌하지 않도록 하려면, `git status` 출력물을 점검하면 된다.
+> > 만약, 다음과 같은 출력물이 생성되게 되면 신규 저장소를 생성하는 것이 권장된다:
 > >
 > > ~~~
 > > $ git status
@@ -136,23 +130,23 @@ wording of the output might be slightly different.
 > > {: .output}
 > {: .solution}
 {: .challenge}
-> ## Correcting `git init` Mistakes
-> Wolfman explains to Dracula how a nested repository is redundant and may cause confusion
-> down the road. Dracula would like to remove the nested repository. How can Dracula undo 
-> his last `git init` in the `moons` sub-directory?
+
+> ## `git init` 실수 올바르게 고치기
+> 늑대인간은 드라큘라에게 중첩된 저장소가 중복되어 불필요한 이유와 함께 향후 혼란을 야기할 수 있는 
+> 이유를 설명했다. 드라큘라는 중첩된 저장소를 제거하고자 한다. 
+> `moons` 서브 디렉토리에 마지막으로 날린 `git init` 명령어 실행취솔르 어떻게 할 수 있을까요?
 >
-> > ## Solution -- USE WITH CAUTION!
+> > ## 해답 -- 주의해서 사용바람!
 > >
-> > To recover from this little mistake, Dracula can just remove the `.git`
-> > folder in the moons subdirectory by running the following command from inside the `planets` directory:
+> > 이러한 사소한 실수를 원복하고자, 드라큘라는 `planets` 디렉토리에서 다음 명령어를 실행하여 
+> > `.git` 디렉토리를 제거하기만 하면 된다:
 > >
 > > ~~~
 > > $ rm -rf moons/.git
 > > ~~~
 > > {: .language-bash}
 > >
-> > But be careful! Running this command in the wrong directory, will remove
-> > the entire Git history of a project you might want to keep. Therefore, always check your current directory using the
-> > command `pwd`.
+> > 하지만, 주의한다! 디렉토리를 잘못 타이핑하게 되면, 보관해야하는 프로젝트 정보를 담고 있는 
+> > Git 이력 전체가 날아가게 된다. 따라서,  `pwd` 명령어를 사용해서 현재 작업 디렉토리를 항상 확인한다.
 > {: .solution}
 {: .challenge}
