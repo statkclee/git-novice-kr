@@ -1,87 +1,77 @@
 ---
-title: Hosting
+title: 호스팅 (Hosting)
 teaching: 10
 exercises: 0
 questions:
-- "Where should I host my version control repositories?"
+- "내 버전 제어 저장소를 어디에 호스팅 해야한요?"
 objectives:
-- "Explain different options for hosting scientific work."
+- "과학적 저작물을 호스팅하는 다른 선택지를 설명한다."
 keypoints:
-- "Projects can be hosted on university servers, on personal domains, or on public forges."
-- "Rules regarding intellectual property and storage of sensitive information apply no matter where code and data are hosted."
+- "프로젝트를 대학 서버, 개인 도메인, 혹은 공공 대장간(public force)에 올릴 수 있다."
+- "코드와 데이터가 어디에 올라오든 관계없이, 지적 재산과 민감정보 저장에 대한 규정이 적용된다."
 ---
 
-The second big question for groups that want to open up their work is where to
-host their code and data.  One option is for the lab, the department, or the
-university to provide a server, manage accounts and backups, and so on.  The
-main benefit of this is that it clarifies who owns what, which is particularly
-important if any of the material is sensitive (i.e., relates to experiments
-involving human subjects or may be used in a patent application).  The main
-drawbacks are the cost of providing the service and its longevity: a scientist
-who has spent ten years collecting data would like to be sure that data will
-still be available ten years from now, but that's well beyond the lifespan of
-most of the grants that fund academic infrastructure.
 
-Another option is to purchase a domain and pay an Internet service provider
-(ISP) to host it.  This gives the individual or group more control, and
-sidesteps problems that can arise when moving from one institution to another,
-but requires more time and effort to set up than either the option above or the
-option below.
+저작물이나 작업을 공개하고자 하는 그룹에서 가지는 두번째 큰 질문은 코드와 데이터를 어디에 호스팅할지 정하는 것이다. 
+방법중 하나는 연구실, 학과, 혹은 대학이 서버를 제공하여 계정관리와 백업 등등을 관리하는 것이다. 
+주된 장점은 누가 무엇을 소유하는지 명확하다. 
+특히 민감한 정보(예를 들어, 사람에 대한 실험정보 혹은 특허 출원에 사용될 수도 있는 정보)가 있다면 중요하다. 
+큰 단점은 서비스 제공 비용과 수명이다: 
+데이터를 수집하는데 10년을 보낸 과학자가 지금부터 10년 후에도 여전히 이용가능하기를 원하지만, 학교 인프라를 지원하는 대부분의 연구기금의 수명이 턱없이 짧다.
 
-The third option is to use a public hosting service like
-[GitHub](https://github.com), [GitLab](https://gitlab.com),or
-[BitBucket](https://bitbucket.org).
-Each of these services provides a web interface that enables people to create,
-view, and edit their code repositories.  These services also provide
-communication and project management tools including issue tracking, wiki pages,
-email notifications, and code reviews.  These services benefit from economies of
-scale and network effects: it's easier to run one large service well than to run
-many smaller services to the same standard.  It's also easier for people to
-collaborate.  Using a popular service can help connect your project with
-communities already using the same service.
+또다른 선택지는 도메인을 구입하고 호스팅하는데 ISP(인터넷 서비스 제공자, Internet service provider)에 비용을 지불한다. 
+이 접근법은 개인이나 그룹에게 좀더 많은 제어권을 주고 학교나 기관을 바꿀 때 생기는 문제도 비켜갈 수 있다. 
+하지만, 위나 아래 선택지보다 초기 설정하는데 더 많은 시간과 노력이 요구된다.
 
-As an example, Software Carpentry [is on
-GitHub]({{ swc_github }}) where you can find the [source for this
-page]({{page.root}}/_episodes/13-hosting.md).
-Anyone with a GitHub account can suggest changes to this text.
+세번째 선택지는 [GitHub](http://github.com), [BitBucket](http://bitbucket.org), 혹은
+[SourceForge](http://sourceforge.net) 같은 공개 호스팅 서비스를 채용하는 것이다. 
+웹 인터페이스를 통해서 저장소 코드를 생성하고, 보고, 편집할 수 있게 한다.
+이러한 서비스는 이슈추적, 위키 페이지, 이메일 통보, 코드 리뷰를 포함한 커뮤니케이션과 프로젝트 관리 도구도 제공한다. 
+이러한 서비스는 규모의 경제와 네트워크 효과로 모두 이익을 볼 수 있다: 즉, 동일한 표준을 갖는 작은 많은 서비스를 실행하는 것보다 큰 서비스 하나를 실행하는 것이 더 쉽다.
+또한, 사람들이 협업하기도 더 쉽다.
+대중적인 서비스를 사용하면 이미 동일한 서비스를 사용하는 커뮤니티와 본인 프로젝트를 연결하는데 도움이 된다.
 
-GitHub repositories can also be assigned DOIs, [by connecting its releases to
-Zenodo](https://guides.github.com/activities/citable-code/). For example,
-[`10.5281/zenodo.57467`](https://zenodo.org/record/57467) is the DOI that has
-been "minted" for this introduction to Git.
+예로서, 소프트웨어 카펜트리는 [GitHub]({{ swc_github }})에 있어서, 
+[해당 페이지에 대한 소스코드]({{page.root}}/_episodes/13-hosting.md)를 찾아볼 수 있다. 
+GitHub 계정을 갖는 누구나 해당 페이지에 변경사항을 제안할 수 있다.
 
-Using large, well-established services can also help you quickly take advantage
-of powerful tools.  One such tool, continuous integration (CI), can
-automatically run software builds and tests whenever code is committed or pull
-requests are submitted.  Direct integration of CI with an online hosting service
-means this information is present in any pull request, and helps maintain code
-integrity and quality standards.  While CI is still available in self-hosted
-situations, there is much less setup and maintenance involved with using an
-online service.  Furthermore, such tools are often provided free of charge to
-open source projects, and are also available for private repositories for a fee.
+GitHub 저장소에서 [Zenodo에 릴리스(release)를 연결하면](https://guides.github.com/activities/citable-code/)
+DOI를 부여할 수도 있다.
+예를 들어, [`10.5281/zenodo.57467`](https://zenodo.org/record/57467)이 "Git 소개"에 대해 주조된 DOI다.
 
-> ## Institutional Barriers
+규모가 크고 잘 정립된 서비스를 사용하는 것이 빠르게 강력한 도구의 장점을 흡수하는데 도움을 줄 수도 있다.
+지속적 통합(Continuous integration, CI)이 그런 도구 중 하나로 자동으로 소프트웨어 빌드를 돌리고 코드가 커밋되거나 풀요청이 제출될 때마다 실행된다. 
+온라인 호스팅 서비스와 CI를 직접 통합이 의미하는 바는, 어떤 풀요청에도 해당 정보가 존재해서 코드 완결성과 품질 표준을 유지하는데 도움을 준다.
+여전히 CI가 자가 구축한 호스팅 상황에도 이용가능하지만,
+온라인 서비스 사용과 연계되면 초기설정과 유지보수 업무를 줄일 수 있다. 
+더욱이, 이러한 도구가 오픈소스 프로젝트에 무료로 제공되기도 한다.
+사설 저장소에 대해서만 비용 일부를 지불하고 이용가능하다.
+
+
+> ## 제도적 장벽 (Institutional Barriers)
 >
-> Sharing is the ideal for science,
-> but many institutions place restrictions on sharing,
-> for example to protect potentially patentable intellectual property.
-> If you encounter such restrictions,
-> it can be productive to inquire about the underlying motivations and
-> either to request an exception for a specific project or domain,
-> or to push more broadly for institutional reform to support more open science.
+> 공유가 과학에는 이상적이지만,
+> 많은 기관에서 공유에 제약을 가한다.
+> 예를 들어 잠재적으로 특허가능한 지적재산을 보호하는데 말이다.
+> 만약 여러분이 그런 제약과 마주한다면,
+> 특정 프로젝트 혹은 도메인에 예외를 요청하거나,
+> 제도 혁파를 통해서 더 공개된 과학을 지지하도록 좀더 
+> 앞서 나가는데 근본적인 동기에 관해 질의하는 것이 더 생산적일 수 있다.
+> 
 {: .callout}
 
-> ## Can My Work Be Public?
+> ## 본인 작업을 공개할 수 있을까?
 >
-> Find out whether you are allowed to host your work openly on a public forge.
-> Can you do this unilaterally,
-> or do you need permission from someone in your institution?
-> If so, who?
+> 본인 작업을 공개 저장소에 공개할 수 있는지 알아보자.
+> 공개 작업을 일방적으로 할 수 있을까?
+> 혹은 속한 조직의 누군가로부터 허락이 필요한가?
+> 만약 그렇다면 조직의 누굴까?
 {: .challenge}
 
-> ## Where Can I Share My Work?
+> ## 본인 작업을 어디에 공개할 수 있을까?
 >
-> Does your institution have a repository or repositories that you can
-> use to share your papers, data and software? How do institutional repositories
-> differ from services like [arXiV](https://arxiv.org/), [figshare](https://figshare.com/), [GitHub](https://github.com/) or [GitLab](https://about.gitlab.com/)?
+> 본인 논문, 데이터, 소프트웨어를 공유하려면 이용가능한 저장소가 
+> 소속기관에 갖추어져 있는가?
+> 소속기관 저장소는 [arXiV](https://arxiv.org/), [figshare](https://figshare.com/), [GitHub](https://github.com/) or [GitLab](https://about.gitlab.com/)와 
+> 같은 데이터 저장소 서비스와 비교하여 어떤 차이점이 있는가?
 {: .challenge}

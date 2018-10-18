@@ -1,5 +1,5 @@
 ---
-title: 공개 과학(Open Science)
+title: 공개 과학 (Open Science)
 teaching: 5
 exercises: 5
 questions:
