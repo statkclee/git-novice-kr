@@ -1,121 +1,96 @@
 ---
-title: Open Science
+title: 공개 과학(Open Science)
 teaching: 5
 exercises: 5
 questions:
-- "How can version control help me make my work more open?"
+- "버전 제어가 나의 작업을 어떻게 더 공개될 수 있도록 도울까?"
 objectives:
-- "Explain how a version control system can be leveraged as an electronic lab notebook for computational work."
+- "컴퓨터 작업에서 버젼제어 시스템이 전자연구노트로 영향력을 어떻게 발휘될 수 있는지 설명한다."
 keypoints:
-- "Open scientific work is more useful and more highly cited than closed."
+- "공개 과학 작업은 폐쇄적인 과학 작업보다 더 유용하고 더 많이 인용된다."
 ---
 
+> "공개(open)"의 반대는 "폐쇄(closed)"가 아니다. 
+> "공개(open)"의 반대는 "망한(broken)" 것이다.
 > The opposite of "open" isn't "closed".
 > The opposite of "open" is "broken".
 >
 > --- John Wilbanks
 {: .quotation}
 
-Free sharing of information might be the ideal in science,
-but the reality is often more complicated.
-Normal practice today looks something like this:
+정보의 자유 공유는 과학에서 이상적일지 모르지만, 현실은 좀더 복잡하다. 현재, 보통 실무사례는 다음과 같다:
 
-*   A scientist collects some data and stores it on a machine
-    that is occasionally backed up by her department.
-*   She then writes or modifies a few small programs
-    (which also reside on her machine)
-    to analyze that data.
-*   Once she has some results,
-    she writes them up and submits her paper.
-    She might include her data—a growing number of journals require this—but
-    she probably doesn't include her code.
-*   Time passes.
-*   The journal sends her reviews written anonymously by a handful of other people in her field.
-    She revises her paper to satisfy them,
-    during which time she might also modify the scripts she wrote earlier,
-    and resubmits.
-*   More time passes.
-*   The paper is eventually published.
-    It might include a link to an online copy of her data,
-    but the paper itself will be behind a paywall:
-    only people who have personal or institutional access
-    will be able to read it.
+*   과학자가 데이터를 수집하고 학과에 가끔 백업되는 컴퓨터에 저장한다.
+*   데이터를 분석하기 위해서 작은 프로그램을 작성하고 수정한다. (프로그램도 연구원의 로컬 노트북에 저장된다.)
+*   적당한 분석 결과가 생성되자 마자, 작성해서 논문을 제출한다. 
+    데이터를 논문에 포함할 수도 있다. (점점 많은 저널이 데이터를 요구한다.) 하지만, 아마도 프로그램 코드는 포함하지 않을 것이다.
+*   시간이 흐른다.
+*   저널에서는 연구원 분야의 익명으로된 소수의 사람들에게서 받아 검토(review)결과를 보낸다. 검토 결과를 충족하도록 논문을 수정한다. 
+    수정하는 동안에 앞서 작성한 프로그램, 스크립트를 변경해서 다시 제출한다.
+*   좀더 많은 시간이 흐른다.
+*   종국에 논문이 출판된다. 
+    논문에 데이터 온라인 사본 링크를 포함할 수도 있다. 
+    하지만, 논문은 유료로 돈을 내야만 접근가능하다는 장벽(paywall)에 막혀있다:
+    개인 혹은 기관 접근 권한을 가진 사람만이 논문을 읽을 수 있다.
 
-For a growing number of scientists,
-though,
-the process looks like this:
+하지만, 점점 더 많은 과학자들에게, 프로세스는 다음과 같다:
 
-*   The data that the scientist collects is stored in an open access repository
-    like [figshare](https://figshare.com/) or
-    [Zenodo](https://zenodo.org), possibly as soon as it's collected,
-    and given its own
-    [Digital Object Identifier](https://en.wikipedia.org/wiki/Digital_object_identifier) (DOI).
-    Or the data was already published and is stored in
-    [Dryad](https://datadryad.org/).
-*   The scientist creates a new repository on GitHub to hold her work.
-*   As she does her analysis,
-    she pushes changes to her scripts
-    (and possibly some output files)
-    to that repository.
-    She also uses the repository for her paper;
-    that repository is then the hub for collaboration with her colleagues.
-*   When she's happy with the state of her paper,
-    she posts a version to [arXiv](https://arxiv.org/)
-    or some other preprint server
-    to invite feedback from peers.
-*   Based on that feedback,
-    she may post several revisions
-    before finally submitting her paper to a journal.
-*   The published paper includes links to her preprint
-    and to her code and data repositories,
-    which  makes it much easier for other scientists
-    to use her work as starting point for their own research.
+*   과학자가 수집한 데이터가 수집되는 즉시, [figshare](http://figshare.com/) 혹은 [Zenodo](http://zenodo.org)같은 공개 접근 저장소에 저장된다. 
+    그리고 [디지털 객체 식별자(Digital Object Identifier, DOI)](https://en.wikipedia.org/wiki/Digital_object_identifier)가 부여된다.
+    혹은 데이터를 이미 게시하고 [Dryad](http://datadryad.org/)에 저장한다.
+*   과학자가 작업물을 보관할 저장소를 GitHub에 생성한다.
+*   분석작업을 수행하면서, 스크립트의 변경사항을 (아마도 몇몇 산출 결과도 포함해서) 저장소에 푸쉬한다. 
+    논문을 위한 저장소를 다목적으로 사용한다; 이 저장소가 다른 동료 과학자와 협업하는 허브가 된다.
+*   논문 상태에 만족할 정도로 진행되면, 
+    [arXiv](http://arxiv.org/) 혹은 다른 사전 출력 서비스에 게시하고, 다른 동료 과학자를 초대해서 피드백을 받는다.
+*   피드백에 기초해서 저널에 논문을 마지막으로 제출하기 전 몇번의 수정사항을 게시할 수도 있다.
+*   출판된 논문은 사전출판논문, 코드, 그리고 데이터 저장소의 링크를 포함한다. 
+    그렇게 함으로써 다른 과학자가 본인 연구의 시작점으로 삼아서 연구를 쉽게 연결해서 수행할 수 있게 된다.
 
-This open model accelerates discovery:
-the more open work is,
-[the more widely it is cited and re-used](https://doi.org/10.1371/journal.pone.0000308).
-However,
-people who want to work this way need to make some decisions
-about what exactly "open" means and how to do it. You can find more on the different aspects of Open Science in [this book](https://link.springer.com/book/10.1007/978-3-319-00026-8).
+이러한 공개 연구 모형은 발견을 가속시킨다. 
+연구 작업이 더 많이 공개될수록, 
+[더 많이 인용되고 재사용된다(the more widely it is cited and re-used)](http://dx.doi.org/10.1371/journal.pone.0000308). 
+하지만, 이런 방식으로 작업하고 연구하고자 하는 사람들은 실무에서 "공개(open)"가 정확하게 의미하는 바에 대해서 몇가지 결정을 내릴 필요가 있다.
+공개 과학(Open Science)에 관한 다른 측면에 대해서 [이 책](https://link.springer.com/book/10.1007/978-3-319-00026-8)을 참고한다.
 
-This is one of the (many) reasons we teach version control.
-When used diligently,
-it answers the "how" question
-by acting as a shareable electronic lab notebook for computational work:
+이것이 버젼 제어(version control)를 가르치는 (많은) 이유 중의 하나다.
+버젼제어가 꾸준히 사용될 때,
+컴퓨터 작업에 대한 공유가능한 전자연구노트로 활동함으로써 "방법"에 대한 질문에 답을 한다:
+    
 
-*   The conceptual stages of your work are documented, including who did
-    what and when. Every step is stamped with an identifier (the commit ID)
-    that is for most intents and purposes unique.
-*   You can tie documentation of rationale, ideas, and other
-    intellectual work directly to the changes that spring from them.
-*   You can refer to what you used in your research to obtain your
-    computational results in a way that is unique and recoverable.
-*   With a version control system such as Git, 
-    the entire history of the repository is easy to archive for perpetuity.
+*   누가 언제 무엇을 했는지를 포함해서, 작업에 대한 개념적 단계가 문서화된다.
+    모든 단계는 (커밋 ID)식별자로 도장이 찍힌다. 식별자는 의도와 목적을 갖는 중복되지 않고 유일하다.
+*   정당성(rationale), 아이디어, 다른 지적 작업에 대한 문서화를 이것에서 파생된 변경사항과 묶을 수 있다.
+*   중복되지 않고 유일하며 복구가능한 방식으로 컴퓨터 작업 결과물을 얻어서 연구에 사용할 것을 조회할 수 있다.
+*   Git같은 분산된 버젼제어 시스템으로, 
+    버젼제어 저장소는 영속성을 쉽게 얻을 수 있고, 전체 이력을 담아낼 수 있다.
 
-> ## Making Code Citable
+
+
+> ## 코드를 인용가능하게 만들기 
 >
-> Anything that is hosted in a version control repository (data, code, papers, 
-> etc.) can be turned into a citable object. You'll learn how to do this in
-> [lesson 12: Citation]({{ page.root }}/12-citation/).
+> 버젼제어 저장소에 올라온 모든 것(데이터, 코드, 논문 등)은 인용가능한 객체로 변환시킬 수 있다.
+> [lesson 12: 인용(Citation)]({{ page.root }}/12-citation/)에서 인용하는 방법에 대해서 학습하게 된다.
 {: .callout}
 
-> ## How Reproducible Is My Work?
+> ## 내 작업을 어떻게 재현가능하게 만들 수 있을까?
 >
-> Ask one of your labmates to reproduce a result you recently obtained
-> using only what they can find in your papers or on the web.
-> Try to do the same for one of their results,
-> then try to do it for a result from a lab you work with.
+> 연구실 동료중 한명에게 논문에 나온 내용과 웹으로만 
+> 최근에 본인이 성취한 결과를 재현할 수 있는지 물어본다.
+> 동료 결과물 중 하나에 대해서도 같은 작업을 수행해 본다.
+> 그리고 나서, 일하고 있는 연구실에 나온 결과물에 대해서도
+> 시도를 해본다.
 {: .challenge}
 
-> ## How to Find an Appropriate Data Repository?
+> ## 적절한 데이터 저장소를 찾는 방법?
 >
-> Surf the internet for a couple of minutes and check out the data repositories
-> mentioned above: [Figshare](https://figshare.com/), [Zenodo](https://zenodo.org),
-> [Dryad](https://datadryad.org/). Depending on your field of research, you might
-> find community-recognized repositories that are well-known in your field.
-> You might also find useful [these data repositories recommended by Nature](
-> https://www.nature.com/sdata/data-policies/repositories).
-> Discuss with your neighbor which data repository you might want to
-> approach for your current project and explain why.
+> 2~3분정도 인터넷을 검색하고 앞에서 언급된 데이터 저장소를 조사해 본다:
+> [Figshare](https://figshare.com/), [Zenodo](https://zenodo.org),
+> [Dryad](https://datadryad.org/). 
+> 전공분야에 따라, 본인 전공분야별로 잘 알려진 저장소가 도움이 될 수 있다.
+> [Nature에서 추천한 데이터 저장소](https://www.nature.com/sdata/data-policies/repositories)도 
+> 유용할 수 있다.
+> 
+> 주변 동료와 현재 작업에 사용하고 있는 데이터 저장소에 대해서 토론해 보고,
+> 이유도 설명해 보자.
 {: .challenge}
