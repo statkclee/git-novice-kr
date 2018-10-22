@@ -1,27 +1,30 @@
 ---
-title: Conflicts
+title: 충돌 (Conflicts)
 teaching: 15
 exercises: 0
 questions:
-- "What do I do when my changes conflict with someone else's?"
+- "본인 변경사항이 다른 누군가의 변경사항과 충돌나는 경우 어떻게 해야 하나요?"
 objectives:
-- "Explain what conflicts are and when they can occur."
-- "Resolve conflicts resulting from a merge."
+- "충돌이 무엇이고, 언제 생기는지를 설명한다."
+- "병합(merge)로부터 생기는 충돌을 해결한다."
 keypoints:
-- "Conflicts occur when two or more people change the same file(s) at the same time."
-- "The version control system does not allow people to overwrite each other's changes blindly, but highlights conflicts so that they can be resolved."
+- "충돌은 2명 혹은 그 이상의 사람들이 동시에 동일한 파일에 변경사항을 가할 때 발생된다."
+- "버전제어 시스템은 다른 사람의 변경사항을 그냥 덮어쓰게 하는 것을 허락하지 않고, 충돌나는 곳을 강조해서 해결될 수 있도록 한다."
 ---
 
-As soon as people can work in parallel, they'll likely step on each other's
-toes.  This will even happen with a single person: if we are working on
-a piece of software on both our laptop and a server in the lab, we could make
-different changes to each copy.  Version control helps us manage these
-[conflicts]({{ page.root }}/reference#conflicts) by giving us tools to
-[resolve]({{ page.root }}/reference#resolve) overlapping changes.
+사람들이 병렬로 작업을 할 수 있게 됨에 따라, 
+누군가 다른 사람 작업영역에 발을 들여 넣을 가능성이 생겼다.
+혼자서 작업할 경우에도 이런 현상이 발생한다: 
+소프트웨어 개발을 개인 노트북과 연구실 서버에서 작업한다면, 
+각 작업본에 다른 변경사항을 만들 수 있다. 
+버젼 제어(version control)가 겹치는 변경사항을 
+[해결(resolve)]({{ page.root }}/reference.html#resolve)하는 툴을 제공함으로서, 
+이러한 [충돌(conflicts)]({{ page.root }}/reference.html#conflicts)을 관리할 수 있게 돕는다.
 
-To see how we can resolve conflicts, we must first create one.  The file
-`mars.txt` currently looks like this in both partners' copies of our `planets`
-repository:
+충돌을 어떻게 해소할 수 있는지 확인하기 위해서, 
+먼저 파일을 하나 생성하자. 
+`mars.txt` 파일은 현재 두 협업하는 사람의 `planets` 저장소 사본에서는 다음과 같이 보인다:
+
 
 ~~~
 $ cat mars.txt
@@ -35,7 +38,7 @@ But the Mummy will appreciate the lack of humidity
 ~~~
 {: .output}
 
-Let's add a line to one partner's copy only:
+파트너 사본에만 한 줄을 추가하자:
 
 ~~~
 $ nano mars.txt
@@ -51,7 +54,7 @@ This line added to Wolfman's copy
 ~~~
 {: .output}
 
-and then push the change to GitHub:
+그리고 나서, 변경사항을 GitHub에 푸쉬하자:
 
 ~~~
 $ git add mars.txt
@@ -81,9 +84,8 @@ To https://github.com/vlad/planets
 ~~~
 {: .output}
 
-Now let's have the other partner
-make a different change to their copy
-*without* updating from GitHub:
+이제 또다른 파트너가 GitHub에서 갱신(update)하지 *않고*,
+본인 사본에 다른 변경사항을 작업한다:
 
 ~~~
 $ nano mars.txt
@@ -99,7 +101,7 @@ We added a different line in the other copy
 ~~~
 {: .output}
 
-We can commit the change locally:
+로컬 저장소에 변경사항을 커밋할 수 있다:
 
 ~~~
 $ git add mars.txt
@@ -113,7 +115,7 @@ $ git commit -m "Add a line in my copy"
 ~~~
 {: .output}
 
-but Git won't let us push it to GitHub:
+하지만, Git이 GitHub에는 푸쉬할 수 없게 한다:
 
 ~~~
 $ git push origin master
@@ -131,14 +133,15 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 ~~~
 {: .output}
 
-![The Conflicting Changes](../fig/conflict.svg)
+![충돌하는 변경사항](../fig/conflict.svg)
 
-Git rejects the push because it detects that the remote repository has new updates that have not been
-incorporated into the local branch.
-What we have to do is pull the changes from GitHub,
-[merge]({{ page.root }}/reference#merge) them into the copy we're currently working in,
-and then push that.
-Let's start by pulling:
+Git이 푸쉬를 거절한다.
+이유는 로컬 브랜로 반영되지 않는 신규 업데이터트가 원격 저장소에 있음을 Git이 탐지했기 때문이다.
+즉, 본인이 작업한 변경사항이 다른 사람이 작업한 변경사항과 중첩되는 것을 Git이 탐지해서, 
+앞에서 작업한 것을 뭉개지 않도록 정지시킨다.
+이제 해야될 작업은 GitHub에서 변경사항을 풀(Pull)해서 가져오고, 
+현재 작업중인 작업본과 [병합(merge)]({{ page.root }}/reference.html#merge)해서 푸쉬한다. 
+풀(Pull)부터 시작하자:
 
 ~~~
 $ git pull origin master
@@ -158,12 +161,11 @@ Automatic merge failed; fix conflicts and then commit the result.
 ~~~
 {: .output}
 
-The `git pull` command updates the local repository to include those
-changes already included in the remote repository.
-After the changes from remote branch have been fetched, Git detects that changes made to the local copy 
-overlap with those made to the remote repository, and therefore refuses to merge the two versions to
-stop us from trampling on our previous work. The conflict is marked in
-in the affected file:
+`git pull` 명령어는 로컬 저장소를 갱신할 때 원격 저장소에 이미 반영된 변경사항을 포함시키도록 한다.
+원격 저장소 브랜치에서 변경사항을 가져온(fetch) 후에, 
+로컬 저장소 사본의 변경사항이 원격 저장소 사본과 겹치는 것을 탐지해냈다.
+따라서, 앞서 작업한 것이 뭉개지지 않도록 서로 다른 두 버젼의 병합(merge)을 승인하지 않고 거절한 것이다.
+해당 파일에 충돌나는 부분을 다음과 같이 표식해 놓는다:
 
 ~~~
 $ cat mars.txt
@@ -182,18 +184,18 @@ This line added to Wolfman's copy
 ~~~
 {: .output}
 
-Our change is preceded by `<<<<<<< HEAD`.
-Git has then inserted `=======` as a separator between the conflicting changes
-and marked the end of the content downloaded from GitHub with `>>>>>>>`.
-(The string of letters and digits after that marker
-identifies the commit we've just downloaded.)
+`<<<<<<< HEAD`으로 시작되는 부분에 본인 변경사항이 나와있다. 
+Git이 자동으로 `=======`을 넣어서 충돌나는 변경사항 사이에 구분자로 넣고,
+`>>>>>>>`기호는 GitHub에서 다운로드된 파일 내용의 마지막을 표시한다. 
+(`>>>>>>>` 표시자 다음에 문자와 숫자로 구성된 문자열로 방금 다운로드한 커밋번호도 식별자로 제시한다.)
 
-It is now up to us to edit this file to remove these markers
-and reconcile the changes.
-We can do anything we want: keep the change made in the local repository, keep
-the change made in the remote repository, write something new to replace both,
-or get rid of the change entirely.
-Let's replace both so that the file looks like this:
+파일을 편집해서 표시자/구분자를 제거하고 변경사항을 일치하는 것은 전적으로 여러분에게 달려있다. 
+원하는 무엇이든지 할 수 있다: 
+예를 들어, 로컬 저장소의 변경사항을 반영하든, 
+원격 저장소의 변경사항을 반영하든, 
+로컬과 원격 저장소의 내용을 대체하는 새로운 것을 작성하든, 
+혹은 변경사항을 완전히 제거하는 것도 가능하다. 
+로컬과 원격 모두 교체해서 다음과 같이 파일이 보이도록 하자:
 
 ~~~
 $ cat mars.txt
@@ -208,9 +210,9 @@ We removed the conflict on this line
 ~~~
 {: .output}
 
-To finish merging,
-we add `mars.txt` to the changes being made by the merge
-and then commit:
+병합을 마무리하기 위해서, 
+병합으로 생성된 변경사항을 `mars.txt` 파일에 추가하고 커밋한다:
+
 
 ~~~
 $ git add mars.txt
@@ -240,7 +242,7 @@ $ git commit -m "Merge changes from GitHub"
 ~~~
 {: .output}
 
-Now we can push our changes to GitHub:
+이제 변경사항을 GitHub에 푸쉬할 수 있다:
 
 ~~~
 $ git push origin master
@@ -258,9 +260,10 @@ To https://github.com/vlad/planets.git
 ~~~
 {: .output}
 
-Git keeps track of what we've merged with what,
-so we don't have to fix things by hand again
-when the collaborator who made the first change pulls again:
+Git이 병합하면서 수행한 것을 모두 추적하고 있어서, 
+수작업으로 다시 고칠 필요는 없다. 
+처음 변경사항을 만든 협력자 프로그래머가 다시 풀하게 되면:
+
 
 ~~~
 $ git pull origin master
@@ -281,7 +284,7 @@ Fast-forward
 ~~~
 {: .output}
 
-We get the merged file:
+병합된 파일을 얻게 된다:
 
 ~~~
 $ cat mars.txt
@@ -296,51 +299,51 @@ We removed the conflict on this line
 ~~~
 {: .output}
 
-We don't need to merge again because Git knows someone has already done that.
 
-Git's ability to resolve conflicts is very useful, but conflict resolution
-costs time and effort, and can introduce errors if conflicts are not resolved
-correctly. If you find yourself resolving a lot of conflicts in a project,
-consider these technical approaches to reducing them:
+다시 병합할 필요는 없는데, 
+다른 누군가 작업을 했다는 것을 Git가 알기 때문이다.
 
-- Pull from upstream more frequently, especially before starting new work
-- Use topic branches to segregate work, merging to master when complete
-- Make smaller more atomic commits
-- Where logically appropriate, break large files into smaller ones so that it is
-  less likely that two authors will alter the same file simultaneously
+충돌을 해소하는 Git 기능은 매우 유용하지만,
+충돌해소에는 시간과 노력이 수반되고, 충돌이 올바르게 해소되지 않게 되면
+오류가 스며들게 된다.
+프로젝트 와중에 상당량의 충돌을 해소하는데 시간을 쓰고 있다고 생각되면,
+충돌을 줄일 수 있는 기술적인 접근법도 고려해보는 것이 좋겠다.
 
-Conflicts can also be minimized with project management strategies:
+- 좀더 자주 upstream을 풀(Pull)하기, 특히 신규 작업을 시작하기 전이라면 더욱 그렇다.
+- 작업을 구별하기 위해서 토픽 브랜치를 사용해서, 작업을 완료하면 마스터(master) 브랜치에 병합시킨다.
+- 좀더 작게 원자수준 커밋을 한다.
+- 논리적으로 적절하다면, 큰 파일을 좀더 작은 것으로 쪼갠다. 그렇게 함으로써 
+  두 저작자가 동시에 동일한 파일을 변경하는 것을 줄일 수 있을 듯 싶다.
 
-- Clarify who is responsible for what areas with your collaborators
-- Discuss what order tasks should be carried out in with your collaborators so
-  that tasks expected to change the same lines won't be worked on simultaneously
-- If the conflicts are stylistic churn (e.g. tabs vs. spaces), establish a
-  project convention that is governing and use code style tools (e.g.
-  `htmltidy`, `perltidy`, `rubocop`, etc.) to enforce, if necessary
+프로젝트 관리 전략으로 충돌(conflicts)을 최소화할 수도 있다:
 
-> ## Solving Conflicts that You Create
+- 동료 협력자와 누가 어떤 분야에 책임이 있는지 명확히 한다.
+- 동료 협력자와 작업순서를 협의해서, 동일한 라인에 변경사항이 있을 수 있는 작업이 동시에 작업되지 않게 시간차를 둔다.
+- 충돌이 문체변동(탭 vs 2 공백) 때문이라면, 프로젝트 관례를 수립하고, 
+  코딩 스타일 도구(`htmltidy`, `perltidy`, `rubocop` 등)를 사용해서 필요한 경우 강제한다.
+
+
+> ## 본인이 생성한 충돌 해소하기
 >
-> Clone the repository created by your instructor.
-> Add a new file to it,
-> and modify an existing file (your instructor will tell you which one).
-> When asked by your instructor,
-> pull her changes from the repository to create a conflict,
-> then resolve it.
+> 강사가 생성한 저장소를 복제하세요. 
+> 저장소에 새 파일을 추가하고, 
+> 기존 파일을 변경하세요. (강사가 변경할 기존 파일이 어느 것인지 알려줄 것이다.) 
+> 강사의 말에 따라 충돌을 생성하는 연습을 위해서,
+> 저장소에서 변경사항을 가져오도록 풀(Pull)하세요. 
+> 그리고 충돌을 해소하고 해결해 보세요.
 {: .challenge}
 
-> ## Conflicts on Non-textual files
+> ## 텍스트 파일이 아닌 충돌
 >
-> What does Git do
-> when there is a conflict in an image or some other non-textual file
-> that is stored in version control?
+> 버젼 제어 저장소의 이미지 파일이나 혹은 다른 텍스트가 아닌 파일에서 충돌이 발생할 때, 
+> Git는 무엇을 하나요?
 >
-> > ## Solution
+> > ## 해답
 > >
-> > Let's try it. Suppose Dracula takes a picture of Martian surface and
-> > calls it `mars.jpg`.
+> > 먼저 시도해 보자. 
+> > 드라큘라가 화성 표면에서 사진을 찍어 `mars.jpg`로 저장했다고 가정한다.
 > >
-> > If you do not have an image file of Mars available, you can create
-> > a dummy binary file like this:
+> > 화성 이미지 파일이 없다면 다음과 같이 더미 바이너리 파일을 생성할 수도 있다.
 > >
 > > ~~~
 > > $ head --bytes 1024 /dev/urandom > mars.jpg
@@ -353,10 +356,10 @@ Conflicts can also be minimized with project management strategies:
 > > ~~~
 > > {: .output}
 > >
-> > `ls` shows us that this created a 1-kilobyte file. It is full of
-> > random bytes read from the special file, `/dev/urandom`.
+> > `ls` 명령어를 사용해서 파일 크기가 1 킬로바이트임이 확인된다.
+> > `/dev/urandom` 특수 파일에서 불러온 임의 바이트로 꽉 차있다.
 > >
-> > Now, suppose Dracula adds `mars.jpg` to his repository:
+> > 이제, 드라큘라가 `mars.jpg` 파일을 본인 저장소에 저장한다고 상정한다:
 > >
 > > ~~~
 > > $ git add mars.jpg
@@ -371,10 +374,10 @@ Conflicts can also be minimized with project management strategies:
 > > ~~~
 > > {: .output}
 > >
-> > Suppose that Wolfman has added a similar picture in the meantime.
-> > His is a picture of the Martian sky, but it is *also* called `mars.jpg`.
-> > When Dracula tries to push, he gets a familiar message:
-> >
+> > 늑대인간도 비슷한 시점에 유사한 사진을 추가했다고 가정한다.
+> > 늑대인간의 사진은 화성하늘 사진인데, 이름도 `mars.jpg`로 동일하다.
+> > 드라큘라가 푸쉬하게 되면 유사한 메시지를 받게 된다: 
+> > 
 > > ~~~
 > > $ git push origin master
 > > ~~~
@@ -392,15 +395,15 @@ Conflicts can also be minimized with project management strategies:
 > > ~~~
 > > {: .output}
 > >
-> > We've learned that we must pull first and resolve any conflicts:
+> > 풀을 먼저한 뒤에 충돌나는 것을 해소한다는 것을 학습했다:
 > >
 > > ~~~
 > > $ git pull origin master
 > > ~~~
 > > {: .language-bash}
 > >
-> > When there is a conflict on an image or other binary file, git prints
-> > a message like this:
+> > 이미지나 기타 바이너리 파일에 충돌이 생길 때,
+> > Git은 다음과 같은 메시지를 출력한다:
 > >
 > > ~~~
 > > $ git pull origin master
@@ -418,21 +421,23 @@ Conflicts can also be minimized with project management strategies:
 > > ~~~
 > > {: .output}
 > >
-> > The conflict message here is mostly the same as it was for `mars.txt`, but
-> > there is one key additional line:
+> > 이번에도 충돌 메시지가 `mars.txt`에 나온 것과 거의 동일하다.
+> > 하지만, 중요한 추가 라인 한줄이 있다:
 > >
 > > ~~~
 > > warning: Cannot merge binary files: mars.jpg (HEAD vs. 439dc8c08869c342438f6dc4a2b615b05b93c76e)
 > > ~~~
 > >
-> > Git cannot automatically insert conflict markers into an image as it does
-> > for text files. So, instead of editing the image file, we must check out
-> > the version we want to keep. Then we can add and commit this version.
-> >
-> > On the key line above, Git has conveniently given us commit identifiers
-> > for the two versions of `mars.jpg`. Our version is `HEAD`, and Wolfman's
-> > version is `439dc8c0...`. If we want to use our version, we can use
-> > `git checkout`:
+> > Git은 자동으로 텍스트 파일에 했던 것처럼 이미지 파일에 충돌지점 표식을 
+> > 끼워넣을 수 없다.
+> > 그래서 이미지 파일을 편집하는 대신에, 
+> > 간직하고자 하는 버전을 쳇아웃(checkout)하고 나서 해당 버전을 추가(add)하고 커밋한다.
+> > 
+> > 중요한 라인에, `mars.jpg` 두가지 버전에 대해서 
+> > 커밋 식별자(commit identifier)를 Git이 제시하고 있다.
+> > 현재 작업 버젼은 `HEAD`이고, 늑대인간 작업버전은 `439dc8c0...`이다.
+> > 본인 작업버젼을 사용하고자 하면, `git checkout` 명령어를 사용한다:
+> > 
 > >
 > > ~~~
 > > $ git checkout HEAD mars.jpg
@@ -446,8 +451,8 @@ Conflicts can also be minimized with project management strategies:
 > > ~~~
 > > {: .output}
 > >
-> > If instead we want to use Wolfman's version, we can use `git checkout` with
-> > Wolfman's commit identifier, `439dc8c0`:
+> > 대신에 늑대인간 버젼을 사용하려고 하면, 
+> > `git checkout` 명령어를 늑대인간 `439dc8c0` 커밋 식별자와 함께 사용하면 된다:
 > >
 > > ~~~
 > > $ git checkout 439dc8c0 mars.jpg
@@ -461,10 +466,11 @@ Conflicts can also be minimized with project management strategies:
 > > ~~~
 > > {: .output}
 > >
-> > We can also keep *both* images. The catch is that we cannot keep them
-> > under the same name. But, we can check out each version in succession
-> > and *rename* it, then add the renamed versions. First, check out each
-> > image and rename it:
+> > 이미지 모두 보관할 수도 있다.
+> > 동일한 이미지명으로 보관할 수는 없다는 것이 중요하다.
+> > 순차적으로 각 버젼을 쳇아웃(checkout)하고 나서 이미지명을 변경한다.
+> > 그리고 나서 이름을 변경한 버젼을 추가한다.
+> > 먼저, 각 이미지를 쳇아웃하고 이름을 변경하자:
 > >
 > > ~~~
 > > $ git checkout HEAD mars.jpg
@@ -474,7 +480,8 @@ Conflicts can also be minimized with project management strategies:
 > > ~~~
 > > {: .language-bash}
 > >
-> > Then, remove the old `mars.jpg` and add the two new files:
+> > 그리고 나서, `mars.jpg` 이전 파일을 삭제하고 
+> > 신규 파일 두개를 추가한다:
 > >
 > > ~~~
 > > $ git rm mars.jpg
@@ -492,29 +499,30 @@ Conflicts can also be minimized with project management strategies:
 > > ~~~
 > > {: .output}
 > >
-> > Now both images of Mars are checked into the repository, and `mars.jpg`
-> > no longer exists.
+> > 이제 화성 이미지 파일 두개가 저장소에서 확인되지만 `mars.jpg` 파일은 더이상 존재하지 않는다.
 > {: .solution}
 {: .challenge}
 
-> ## A Typical Work Session
+> ## 일반적인 작업 시간 A Typical Work Session
 >
 > You sit down at your computer to work on a shared project that is tracked in a
 > remote Git repository. During your work session, you take the following
 > actions, but not in this order:
+> 원격 Git 저장소를 활용하여 공동 프로젝트로 작업하는 컴퓨터 앞에 않아있다.
+> 작업시간동안에 다음 동작을 취하지만, 작업순서는 다르다:
 >
-> - *Make changes* by appending the number `100` to a text file `numbers.txt`
-> - *Update remote* repository to match the local repository
-> - *Celebrate* your success with beer(s)
-> - *Update local* repository to match the remote repository
-> - *Stage changes* to be committed
-> - *Commit changes* to the local repository
->
-> In what order should you perform these actions to minimize the chances of
-> conflicts? Put the commands above in order in the *action* column of the table
-> below. When you have the order right, see if you can write the corresponding
-> commands in the *command* column. A few steps are populated to get you
-> started.
+> - *변경한다(make change)*: `numbers.txt` 텍스트 파일에 숫자 `100`을 추가.
+> - *원격 저장소 갱신시키기(Update remote)*: 로컬 저장소와 매칭되어 동기화시킴.
+> - *축하하기(Celebrate)*: 맥주로 성공을 자축함.
+> - *로컬 저장소 갱신시키기(Update local)*: 원격 저장소와 매칭되어 동기화시킴.
+> - *변경사항 준비영역으로 보내기(Stage change)*: 커밋대상으로 추가하기.
+> - *변경사항(Commit change)*: 로컬 저장소에 커밋하기 
+> 
+> 어떤 순서로 작업을 수행해야 충돌이 날 가능성을 최소화할 수 있을까?
+> 아래표 *action* 칼럼에 순서대로 상기 명령어를 적어 본다.
+> 작업 순서를 정했으면, *command* 칼럼에 대응되는 명령어를 적어본다.
+> 일부 단계를 시작하는데 도움이 되도록 채워져 있다.
+> 
 >
 > |order|action . . . . . . . . . . |command . . . . . . . . . . |
 > |-----|---------------------------|----------------------------|
@@ -525,7 +533,7 @@ Conflicts can also be minimized with project management strategies:
 > |5    |                           |                            |
 > |6    | Celebrate!                | `AFK`                      |
 >
-> > ## Solution
+> > ## 해답
 > >
 > > |order|action . . . . . . |command . . . . . . . . . . . . . . . . . . . |
 > > |-----|-------------------|----------------------------------------------|
