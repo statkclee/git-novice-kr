@@ -102,14 +102,14 @@ nothing to commit (create/copy files and use "git add" to track)
 > ~~~
 > {: .language-bash}
 >
-> Is the `git init` command, run inside the `moons` sub-directory, required for 
-> tracking files stored in the `moons` sub-directory?
+> `moons` 서브 디렉토리에 저장된 파일을 추적하기 위해
+> `moons` 디렉토리 안에서 `git init` 명령을 실행해야 할까?
 > 
 > > ## 해답
 > >
-> > 아닙니다. `moons` 서브 디렉토리에 Git 저장소를 만들 필요는 없어요.
+> > 아니다. `moons` 서브 디렉토리에 Git 저장소를 만들 필요는 없다.
 > > 왜냐하면, `planets` 저장소가 이미 모든 파일, 서브 디렉토리, `planets` 디렉토리
-> > 아래 서브 디렉토리 파일 모두를 추적하기 때문입니다.
+> > 아래 서브 디렉토리 파일 모두를 추적하기 때문이다.
 > > 따라서, 달에 관한 모든 정보를 추정하는데, 드랴큘라는 `planets` 디렉토리 아래
 > > `moons` 서브 디렉토리를 추가하는 것으로 충분하다.
 > > 
@@ -134,7 +134,7 @@ nothing to commit (create/copy files and use "git add" to track)
 > ## `git init` 실수 올바르게 고치기
 > 늑대인간은 드라큘라에게 중첩된 저장소가 중복되어 불필요한 이유와 함께 향후 혼란을 야기할 수 있는 
 > 이유를 설명했다. 드라큘라는 중첩된 저장소를 제거하고자 한다. 
-> `moons` 서브 디렉토리에 마지막으로 날린 `git init` 명령어 실행취솔르 어떻게 할 수 있을까요?
+> `moons` 서브 디렉토리에 마지막으로 날린 `git init` 명령어 실행취소를 어떻게 할 수 있을까?
 >
 > > ## 해답 -- 주의해서 사용바람!
 > >
